@@ -1,5 +1,5 @@
 <div class="input">
-  <form action="/getJoke" method="get">
+  <form action="/getJoke" method="post">
     <label for="name">What is your Name? : </label>
     <input type="text" name="name" required />
     <input type="submit" value="Send Name" />
@@ -9,8 +9,15 @@
 <div class="output">
   <% if (typeof result !== 'undefined' && result !== null) { %>
   <div class="joke">
+    <% if(result.type == "single") { %>
+    <p class="answer"><%= result.joke %></p>
+    <% } else if(result.type == "twopart"){ %>
     <p><%= result.setup %></p>
-    <p><%= result.delivery %></p>
+    <p class="answer"><%= result.delivery %></p>
+    <% } else if(result.error) { %>
+    <p><%= result.message %></p>
+    <p><%= result.causedBy %></p>
+    <% } %>
   </div>
 
   <% } %>
